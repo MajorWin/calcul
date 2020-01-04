@@ -43,7 +43,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\ILexer.cs" />
     <Compile Include="src\Lexer.cs" />
-    <Compile Include="src\Token.cs" />
+    <Compile Include="src\Tokens\BofToken.cs" />
+    <Compile Include="src\Tokens\EofToken.cs" />
+    <Compile Include="src\Tokens\InvalidToken.cs" />
+    <Compile Include="src\Tokens\NumberToken.cs" />
+    <Compile Include="src\Tokens\OperationToken\DivideToken.cs" />
+    <Compile Include="src\Tokens\OperationToken\MinusToken.cs" />
+    <Compile Include="src\Tokens\OperationToken\MultiplyToken.cs" />
+    <Compile Include="src\Tokens\OperationToken\OperationToken.cs" />
+    <Compile Include="src\Tokens\OperationToken\PlusToken.cs" />
+    <Compile Include="src\Tokens\Token.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

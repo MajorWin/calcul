@@ -1,6 +1,10 @@
-﻿namespace calcul {
-    public interface ILexer {
-        Token GetCurrent();
+﻿using Calcul.Tokens;
+
+namespace Calcul
+{
+    public interface ILexer
+    {
+        Token Current { get; }
         Token GetNext();
     }
 }

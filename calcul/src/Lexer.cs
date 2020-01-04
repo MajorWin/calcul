@@ -1,58 +1,67 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+using Calcul.Tokens;
+using calcul.Tokens.OperationToken;
 
-namespace calcul {
-    public class Lexer : ILexer {
-        private readonly string _string;
-        private int _index = 0;
-        
-        private Token _current = null;
+namespace Calcul
+{
+    public class Lexer : ILexer
+    {
+        private readonly string myString;
+        private int myIndex;
 
-        public Lexer(string s) {
-            _string = s;
+        public Lexer(string s)
+        {
+            myString = s;
+            Current = BofToken.Instance;
         }
 
-        public Token GetCurrent() {
-            return _current ??= NextToken();
+        public Token Current { get; private set; }
+
+        public Token GetNext()
+        {
+            return Current = NextToken();
         }
 
-        public Token GetNext() {
-            return _current = NextToken();
-        }
 
-        private Token NextToken() {
-            while (_index < _string.Length && _string[_index] == ' ') {
-                _index++;
+        private Token NextToken()
+        {
+            while (myIndex < myString.Length && myString[myIndex] == ' ')
+            {
+                myIndex++;
             }
 
-            if (_index == _string.Length) {
+            if (myIndex == myString.Length)
+            {
                 return EofToken.Instance;
             }
 
-            switch (_string[_index]) {
+            switch (myString[myIndex])
+            {
                 case '+':
-                    _index++;
+                    myIndex++;
                     return PlusToken.Instance;
                 case '-':
-                    _index++;
+                    myIndex++;
                     return MinusToken.Instance;
                 case '*':
-                    _index++;
+                    myIndex++;
                     return MultiplyToken.Instance;
                 case '/':
-                    _index++;
+                    myIndex++;
                     return DivideToken.Instance;
                 default:
-                    if (!char.IsDigit(_string[_index])) {
-                        throw new Exception("!char.IsDigit(_string[_index])");
+                    if (!char.IsDigit(myString[myIndex]))
+                    {
+                        throw new Exception("!char.IsDigit(myString[myIndex])");
                     }
 
                     var numberLength = 0;
-                    while (_index + numberLength < _string.Length && char.IsDigit(_string[_index + numberLength++])) ;
+                    while (myIndex + numberLength < myString.Length &&
+                           char.IsDigit(myString[myIndex + numberLength++])) ;
 
-                    var number = int.Parse(_string.Substring(_index, numberLength));
-                    _index += numberLength;
-                    
+                    var number = int.Parse(myString.Substring(myIndex, numberLength));
+                    myIndex += numberLength;
+
                     return new NumberToken(number);
             }
         }
