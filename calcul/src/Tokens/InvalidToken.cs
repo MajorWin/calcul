@@ -1,6 +1,6 @@
-﻿namespace Calcul.Tokens
+﻿namespace calcul.Tokens
 {
-    public class InvalidToken
+    public class InvalidToken : Token
     {
         public readonly string Value;
 

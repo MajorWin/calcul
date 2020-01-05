@@ -1,4 +1,4 @@
-﻿namespace Calcul.Tokens {
+﻿namespace calcul.Tokens {
     public sealed class BofToken : Token
     {
         public static readonly BofToken Instance = new BofToken();

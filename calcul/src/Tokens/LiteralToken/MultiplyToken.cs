@@ -1,5 +1,5 @@
-﻿namespace calcul.Tokens.OperationToken {
-    public sealed class MultiplyToken : OperationToken
+﻿namespace calcul.Tokens.LiteralToken {
+    public sealed class MultiplyToken : LiteralToken
     {
         public static readonly MultiplyToken Instance = new MultiplyToken();
         private MultiplyToken() => Value = "*";

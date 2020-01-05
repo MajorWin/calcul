@@ -1,9 +1,10 @@
-﻿namespace Calcul.Tokens {
-    public sealed class NumberToken : Token
+﻿namespace calcul.Tokens
+{
+    public sealed class IntToken : Token
     {
         public readonly int Value;
 
-        public NumberToken(int value)
+        public IntToken(int value)
         {
             Value = value;
         }

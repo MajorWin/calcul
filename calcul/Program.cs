@@ -1,13 +1,26 @@
 ﻿using System;
-using Calcul.Tokens;
+using System.Globalization;
+using System.Threading;
+using calcul.Tokens;
 
-namespace Calcul
+namespace calcul
 {
     internal class Program
     {
         public static void Main(string[] args)
         {
-            ILexer l = new Lexer("   + 100 500 - * 600     5");
+            //TODO: exceptions in English
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+
+            TestLexer();
+            Console.Out.WriteLine("\n----------------------------------------\n");
+            TestParser();
+        }
+
+        private static void TestLexer()
+        {
+            ILexer l = new ArithmeticLexer("   + 100 500 - * 600     5");
 
             Token t = l.Current;
             Console.Out.WriteLine(t);
@@ -22,6 +35,16 @@ namespace Calcul
                     Console.Out.WriteLine("t != l.GetCurrent()");
                     return;
                 }
+            }
+        }
+
+        private static void TestParser()
+        {
+            ILexer l = new ArithmeticLexer("1*2/3 + 5 + 6*7");
+            IParser p = new InfixToPrefixParser(l);
+            foreach (var token in p.Parse())
+            {
+                Console.Out.Write($"{token} ");
             }
         }
     }
