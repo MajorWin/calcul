@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using calcul.Tokens;
+using Calcul.Tokens;
 
-namespace calcul
+namespace Calcul
 {
     public interface IParser
     {
-        IEnumerable<Token> Parse();
+        IReadOnlyList<Token> Parse();
     }
 }

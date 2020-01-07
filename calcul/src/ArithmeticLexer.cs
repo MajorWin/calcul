@@ -1,7 +1,7 @@
-﻿using calcul.Tokens;
-using calcul.Tokens.LiteralToken;
+﻿using Calcul.Tokens;
+using Calcul.Tokens.ValueToken;
 
-namespace calcul
+namespace Calcul
 {
     public class ArithmeticLexer : ILexer
     {
@@ -55,10 +55,10 @@ namespace calcul
                     return ReadInt();
             }
         }
-        
+
         private void SkipSpaces()
         {
-            while (myString.Length > myIndex && myString[myIndex] == ' ')
+            while (myString.Length > myIndex && char.IsWhiteSpace(myString[myIndex]))
             {
                 myIndex++;
             }

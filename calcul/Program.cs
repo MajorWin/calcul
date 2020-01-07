@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using calcul.Tokens;
+using Calcul.Tokens;
 
-namespace calcul
+namespace Calcul
 {
-    internal class Program
+    class Program
     {
         public static void Main(string[] args)
         {
@@ -22,10 +22,10 @@ namespace calcul
         {
             ILexer l = new ArithmeticLexer("   + 100 500 - * 600     5");
 
-            Token t = l.Current;
+            var t = l.Current;
             Console.Out.WriteLine(t);
 
-            while (!(t is EofToken))
+            while (t.IsNot<EofToken>())
             {
                 t = l.GetNext();
                 Console.Out.WriteLine(t);

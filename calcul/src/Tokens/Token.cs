@@ -1,4 +1,4 @@
-﻿namespace calcul.Tokens
+﻿namespace Calcul.Tokens
 {
-    public abstract class Token { }
+    public interface Token { }
 }
