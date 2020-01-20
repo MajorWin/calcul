@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.Threading;
 using Calcul.Tokens;
@@ -16,6 +16,8 @@ namespace Calcul
             TestLexer();
             Console.Out.WriteLine("\n----------------------------------------\n");
             TestParser();
+            Console.Out.WriteLine("\n----------------------------------------\n");
+            TestInterpreter();
         }
 
         private static void TestLexer()
@@ -46,6 +48,14 @@ namespace Calcul
             {
                 Console.Out.Write($"{token} ");
             }
+        }
+
+        private static void TestInterpreter()
+        {
+            ILexer l = new ArithmeticLexer("1*2-3 + 5 + 6*7");
+            IParser p = new InfixToPrefixParser(l);
+            IntExpressionInterpreter i = new IntExpressionInterpreter(p.Parse());
+            Console.Out.WriteLine(i.Interpret());
         }
     }
 }
