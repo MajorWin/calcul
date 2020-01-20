@@ -5,6 +5,6 @@ namespace Calcul
 {
     public interface IParser
     {
-        IReadOnlyList<Token> Parse();
+        IReadOnlyList<IToken> Parse();
     }
 }

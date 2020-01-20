@@ -1,5 +1,6 @@
 ﻿using Calcul.Tokens;
 using Calcul.Tokens.ValueToken;
+using Calcul.Tokens.ValueToken.OperationToken;
 
 namespace Calcul
 {
@@ -14,11 +15,11 @@ namespace Calcul
             Current = BofToken.Instance;
         }
 
-        public Token Current { get; private set; }
+        public IToken Current { get; private set; }
 
-        public Token GetNext() => Current = ReadNextToken();
+        public IToken GetNext() => Current = ReadNextToken();
 
-        private Token ReadNextToken()
+        private IToken ReadNextToken()
         {
             SkipSpaces();
 

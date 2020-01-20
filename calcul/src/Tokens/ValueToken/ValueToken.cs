@@ -1,6 +1,6 @@
 ﻿namespace Calcul.Tokens
 {
-    public abstract class ValueToken<T> : Token
+    public abstract class ValueToken<T> : IToken
     {
         public readonly T Value;
         protected ValueToken(T value) => Value = value;

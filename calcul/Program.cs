@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Threading;
 using Calcul.Tokens;
@@ -40,7 +40,7 @@ namespace Calcul
 
         private static void TestParser()
         {
-            ILexer l = new ArithmeticLexer("1*2/3 + 5 + 6*7");
+            ILexer l = new ArithmeticLexer("1*2-3 + 5 + 6*7");
             IParser p = new InfixToPrefixParser(l);
             foreach (var token in p.Parse())
             {

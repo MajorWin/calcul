@@ -4,7 +4,7 @@ namespace Calcul
 {
     public interface ILexer
     {
-        Token Current { get; }
-        Token GetNext();
+        IToken Current { get; }
+        IToken GetNext();
     }
 }

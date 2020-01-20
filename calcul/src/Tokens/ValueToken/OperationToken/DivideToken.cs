@@ -1,6 +1,6 @@
-﻿namespace Calcul.Tokens.ValueToken
+﻿namespace Calcul.Tokens.ValueToken.OperationToken
 {
-    public sealed class DivideToken : ValueToken<char>
+    public sealed class DivideToken : OperationToken
     {
         public static readonly DivideToken Instance = new DivideToken();
         private DivideToken() : base('/') { }

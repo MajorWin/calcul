@@ -11,14 +11,14 @@ namespace Calcul
 
         public InfixToPrefixParser(ILexer lexer) => myLexer = lexer;
 
-        public IReadOnlyList<Token> Parse()
+        public IReadOnlyList<IToken> Parse()
         {
-            return myLexer.GetNext() is EofToken ? (IReadOnlyList<Token>) ImmutableList<Token>.Empty : ParseExpr();
+            return myLexer.GetNext() is EofToken ? (IReadOnlyList<IToken>) ImmutableList<IToken>.Empty : ParseExpr();
         }
 
-        private List<Token> ParseExpr()
+        private List<IToken> ParseExpr()
         {
-            var expr = new List<Token>();
+            var expr = new List<IToken>();
             var operands = ParseTerm();
             while (myLexer.Current.IsPlusMinus())
             {
@@ -31,10 +31,10 @@ namespace Calcul
             return expr;
         }
 
-        private List<Token> ParseTerm()
+        private List<IToken> ParseTerm()
         {
-            var term = new List<Token>();
-            var operands = new List<Token> {ParseFactory()};
+            var term = new List<IToken>();
+            var operands = new List<IToken> {ParseFactory()};
             while (myLexer.Current.IsMultiplyDivide())
             {
                 term.Add(myLexer.Current);
@@ -46,7 +46,7 @@ namespace Calcul
             return term;
         }
 
-        private Token ParseFactory()
+        private IToken ParseFactory()
         {
             var token = myLexer.Current;
             if (!(token is IntToken))
