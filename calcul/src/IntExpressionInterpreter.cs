@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Calcul.Tokens;
-using Calcul.Tokens.ValueToken.OperationToken;
+using Calcul.Token;
+using Calcul.Token.ValueToken;
+using Calcul.Token.ValueToken.OperationToken;
 
 namespace Calcul
 {

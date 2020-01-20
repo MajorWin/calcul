@@ -1,8 +1,8 @@
-﻿using Calcul.Tokens;
-using Calcul.Tokens.ValueToken;
-using Calcul.Tokens.ValueToken.OperationToken;
+﻿using Calcul.Token;
+using Calcul.Token.ValueToken;
+using Calcul.Token.ValueToken.OperationToken;
 
-namespace Calcul
+namespace Calcul.Lexer
 {
     public class ArithmeticLexer : ILexer
     {

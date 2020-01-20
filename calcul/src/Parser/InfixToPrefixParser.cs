@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Calcul.Tokens;
+using Calcul.Extensions;
+using Calcul.Lexer;
+using Calcul.Token;
+using Calcul.Token.ValueToken;
 
-namespace Calcul
+namespace Calcul.Parser
 {
     class InfixToPrefixParser : IParser
     {
@@ -20,7 +23,7 @@ namespace Calcul
         {
             var expr = new List<IToken>();
             var operands = ParseTerm();
-            while (myLexer.Current.IsPlusMinus())
+            while (myLexer.Current.IsExprToken())
             {
                 expr.Add(myLexer.Current);
                 myLexer.GetNext();
@@ -35,7 +38,7 @@ namespace Calcul
         {
             var term = new List<IToken>();
             var operands = new List<IToken> {ParseFactory()};
-            while (myLexer.Current.IsMultiplyDivide())
+            while (myLexer.Current.IsTermToken())
             {
                 term.Add(myLexer.Current);
                 myLexer.GetNext();

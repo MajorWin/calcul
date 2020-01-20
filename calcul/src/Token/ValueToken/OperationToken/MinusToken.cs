@@ -1,4 +1,4 @@
-﻿namespace Calcul.Tokens.ValueToken.OperationToken
+﻿namespace Calcul.Token.ValueToken.OperationToken
 {
     public sealed class MinusToken : OperationToken
     {

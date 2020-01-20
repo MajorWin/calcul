@@ -1,16 +1,16 @@
-﻿using Calcul.Tokens.ValueToken;
-using Calcul.Tokens.ValueToken.OperationToken;
+﻿using Calcul.Token;
+using Calcul.Token.ValueToken.OperationToken;
 
-namespace Calcul.Tokens
+namespace Calcul.Extensions
 {
     public static class TokenHelper
     {
-        public static bool IsPlusMinus(this IToken token)
+        public static bool IsExprToken(this IToken token)
         {
             return token is PlusToken || token is MinusToken;
         }
 
-        public static bool IsMultiplyDivide(this IToken token)
+        public static bool IsTermToken(this IToken token)
         {
             return token is MultiplyToken || token is DivideToken;
         }

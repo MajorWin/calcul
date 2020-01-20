@@ -1,4 +1,4 @@
-﻿namespace Calcul.Tokens
+﻿namespace Calcul.Token
 {
     public sealed class BofToken : IToken
     {

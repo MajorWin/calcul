@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using Calcul.Tokens;
+using Calcul.Extensions;
+using Calcul.Lexer;
+using Calcul.Parser;
+using Calcul.Token;
 
 namespace Calcul
 {

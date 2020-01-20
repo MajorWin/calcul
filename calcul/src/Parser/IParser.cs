@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Calcul.Tokens;
+using Calcul.Token;
 
-namespace Calcul
+namespace Calcul.Parser
 {
     public interface IParser
     {

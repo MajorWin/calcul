@@ -1,4 +1,4 @@
-﻿namespace Calcul.Tokens
+﻿namespace Calcul.Token.ValueToken
 {
     public abstract class ValueToken<T> : IToken
     {

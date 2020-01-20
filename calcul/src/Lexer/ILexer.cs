@@ -1,6 +1,6 @@
-﻿using Calcul.Tokens;
+﻿using Calcul.Token;
 
-namespace Calcul
+namespace Calcul.Lexer
 {
     public interface ILexer
     {

@@ -1,4 +1,4 @@
-﻿namespace Calcul.Tokens.ValueToken
+﻿namespace Calcul.Token.ValueToken
 {
     public class InvalidToken : ValueToken<string>
     {

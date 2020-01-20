@@ -1,4 +1,4 @@
-﻿namespace Calcul.Tokens
+﻿namespace Calcul.Token.ValueToken
 {
     public sealed class IntToken : ValueToken<int>
     {
