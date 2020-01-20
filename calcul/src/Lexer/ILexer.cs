@@ -6,5 +6,6 @@ namespace Calcul.Lexer
     {
         IToken Current { get; }
         IToken GetNext();
+        IToken GetCurrentAndMoveNext();
     }
 }

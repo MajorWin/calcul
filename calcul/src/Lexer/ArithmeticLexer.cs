@@ -18,6 +18,13 @@ namespace Calcul.Lexer
         public IToken Current { get; private set; }
 
         public IToken GetNext() => Current = ReadNextToken();
+        
+        public IToken GetCurrentAndMoveNext()
+        {
+            var oldCurrent = Current;
+            Current = ReadNextToken();
+            return oldCurrent;
+        }
 
         private IToken ReadNextToken()
         {

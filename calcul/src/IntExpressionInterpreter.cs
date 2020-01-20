@@ -9,7 +9,7 @@ namespace Calcul
 {
     public class IntExpressionInterpreter
     {
-        private readonly IReadOnlyList<IToken> myExpression;
+        private readonly IReadOnlyList<IToken> myPostfixExpression;
 
         private readonly Dictionary<OperationToken, IBinaryOperation> myBinaryOperations =
             new Dictionary<OperationToken, IBinaryOperation>
@@ -20,12 +20,12 @@ namespace Calcul
                 {DivideToken.Instance, DivideOperation.Instance}
             };
 
-        public IntExpressionInterpreter(IReadOnlyList<IToken> expression) => myExpression = expression;
+        public IntExpressionInterpreter(IReadOnlyList<IToken> postfixExpression) => myPostfixExpression = postfixExpression;
 
         public int Interpret()
         {
             var result = new List<int>();
-            foreach (var token in myExpression.Reverse())
+            foreach (var token in myPostfixExpression)
             {
                 switch (token)
                 {
@@ -35,8 +35,8 @@ namespace Calcul
                     case OperationToken ot:
                         var size = result.Count;
                         result[size - 2] = myBinaryOperations[ot].Calculate(
-                            result[size - 1],
-                            result[size - 2]
+                            result[size - 2],
+                            result[size - 1]
                         );
                         result.RemoveAt(size - 1);
                         break;

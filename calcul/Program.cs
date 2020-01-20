@@ -46,7 +46,7 @@ namespace Calcul
         private static void TestParser()
         {
             ILexer l = new ArithmeticLexer("1*2-3 + 5 + 6*7");
-            IParser p = new InfixToPrefixParser(l);
+            IParser p = new InfixToPostfixParser(l);
             foreach (var token in p.Parse())
             {
                 Console.Out.Write($"{token} ");
@@ -56,7 +56,7 @@ namespace Calcul
         private static void TestInterpreter()
         {
             ILexer l = new ArithmeticLexer("1*2-3 + 5 + 6*7");
-            IParser p = new InfixToPrefixParser(l);
+            IParser p = new InfixToPostfixParser(l);
             IntExpressionInterpreter i = new IntExpressionInterpreter(p.Parse());
             Console.Out.WriteLine(i.Interpret());
         }
