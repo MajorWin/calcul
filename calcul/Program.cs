@@ -4,12 +4,15 @@ using System.Threading;
 using Calcul.Extensions;
 using Calcul.Lexer;
 using Calcul.Parser;
+using Calcul.Parser.Ast;
 using Calcul.Token;
 
 namespace Calcul
 {
     class Program
     {
+        private static readonly string myExpressionString = "1*2-3 + 5 + 6*7"; 
+        
         public static void Main(string[] args)
         {
             //TODO: exceptions in English
@@ -21,6 +24,8 @@ namespace Calcul
             TestParser();
             Console.Out.WriteLine("\n----------------------------------------\n");
             TestInterpreter();
+            Console.Out.WriteLine("\n----------------------------------------\n");
+            TestAstParser();
         }
 
         private static void TestLexer()
@@ -45,8 +50,8 @@ namespace Calcul
 
         private static void TestParser()
         {
-            ILexer l = new ArithmeticLexer("1*2-3 + 5 + 6*7");
-            IParser p = new InfixToPostfixParser(l);
+            var l = new ArithmeticLexer(myExpressionString);
+            var p = new InfixToPostfixParser(l);
             foreach (var token in p.Parse())
             {
                 Console.Out.Write($"{token} ");
@@ -55,10 +60,17 @@ namespace Calcul
 
         private static void TestInterpreter()
         {
-            ILexer l = new ArithmeticLexer("1*2-3 + 5 + 6*7");
-            IParser p = new InfixToPostfixParser(l);
-            IntExpressionInterpreter i = new IntExpressionInterpreter(p.Parse());
+            var l = new ArithmeticLexer(myExpressionString);
+            var p = new InfixToPostfixParser(l);
+            var i = new IntExpressionInterpreter(p.Parse());
             Console.Out.WriteLine(i.Interpret());
+        }
+
+        private static void TestAstParser()
+        {
+            var l = new ArithmeticLexer(myExpressionString);
+            var p = new InfixToAstParser(l);
+            Console.Out.Write(p.Parse().Calculate());
         }
     }
 }
