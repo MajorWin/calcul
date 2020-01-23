@@ -2,9 +2,7 @@
 {
     public class SubtractionExpression : BinaryExpression
     {
-        public SubtractionExpression(IExpression firstOp, IExpression secondOp) : base(firstOp, secondOp) { }
-
-        protected override int Operation(IExpression firstOp, IExpression secondOp) =>
-            firstOp.Calculate() - secondOp.Calculate();
+        public SubtractionExpression(IExpression left, IExpression right) : base(left, right) { }
+        public override int Calculate() => Left.Calculate() - Right.Calculate();
     }
 }

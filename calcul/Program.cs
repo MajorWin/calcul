@@ -68,7 +68,8 @@ namespace Calcul
 
         private static void TestAstParser()
         {
-            var l = new ArithmeticLexer(myExpressionString);
+            var expression = "1*2-3 + (5 + 6)*7"; 
+            var l = new ArithmeticLexer(expression);
             var p = new InfixToAstParser(l);
             Console.Out.Write(p.Parse().Calculate());
         }

@@ -22,51 +22,72 @@ namespace Calcul.Parser.Ast
 
         private IExpression ParseExpr()
         {
-            var firstOp = ParseTerm();
+            var left = ParseTerm();
             while (myLexer.Current.IsExprToken())
             {
                 var operation = myLexer.GetCurrentAndMoveNext();
-                var secondOp = ParseTerm();
-                firstOp = operation switch
+                var right = ParseTerm();
+                left = operation switch
                 {
-                    PlusToken _ => new AdditionExpression(firstOp, secondOp),
-                    MinusToken _ => new SubtractionExpression(firstOp, secondOp),
+                    PlusToken _ => new AdditionExpression(left, right),
+                    MinusToken _ => new SubtractionExpression(left, right),
                     // TODO: add new exception type
-                    _ => throw new Exception($"Invalid token: {firstOp}")
+                    _ => throw new Exception($"Invalid token: {left}")
                 };
             }
 
-            return firstOp;
+            return left;
         }
 
         private IExpression ParseTerm()
         {
-            var firstOp = ParseFactory();
+            var left = ParseFactory();
             while (myLexer.Current.IsTermToken())
             {
                 var operation = myLexer.GetCurrentAndMoveNext();
-                var secondOp = ParseFactory();
-                firstOp = operation switch
+                var right = ParseFactory();
+                left = operation switch
                 {
-                    MultiplyToken _ => new MultiplicationExpression(firstOp, secondOp),
-                    DivideToken _ => new DivisionExpression(firstOp, secondOp),
+                    MultiplyToken _ => new MultiplicationExpression(left, right),
+                    DivideToken _ => new DivisionExpression(left, right),
                     // TODO: add new exception type
-                    _ => throw new Exception($"Invalid token: {firstOp}")
+                    _ => throw new Exception($"Invalid token: {left}")
                 };
             }
 
-            return firstOp;
+            return left;
         }
 
         private IExpression ParseFactory()
         {
-            var factory = myLexer.GetCurrentAndMoveNext();
-            if (!(factory is IntToken))
+            return myLexer.Current switch
             {
-                throw new Exception($"!(token is IntToken): {factory}");
-            }
+                IntToken _ => ParseNumber(),
+                OpenParenthesisToken _ => ParseParenthesesExpression(),
+                _ => throw new Exception($"!(token is IntToken): {myLexer.Current}")
+            };
+        }
 
-            return new IntNumberExpression(((IntToken) factory).Value);
+        private IExpression ParseNumber()
+        {
+            var value = ((IntToken) myLexer.GetCurrentAndMoveNext()).Value;
+            return new IntNumberExpression(value);
+        }
+
+        private IExpression ParseParenthesesExpression()
+        {
+            // (
+            myLexer.GetNext();
+            
+            var expr = ParseExpr();
+            
+            // )
+            var afterExprToken = myLexer.Current;
+            if (afterExprToken.IsNot<CloseParenthesisToken>())
+                throw new Exception($"Invalid bracket expression: found {afterExprToken}");
+            myLexer.GetNext();
+
+            return expr;
         }
     }
 }

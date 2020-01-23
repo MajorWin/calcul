@@ -2,17 +2,15 @@
 {
     public abstract class BinaryExpression : IExpression
     {
-        private readonly IExpression myFirstOp;
-        private readonly IExpression mySecondOp;
+        protected readonly IExpression Left;
+        protected readonly IExpression Right;
 
-        protected BinaryExpression(IExpression firstOp, IExpression secondOp)
+        protected BinaryExpression(IExpression left, IExpression right)
         {
-            myFirstOp = firstOp;
-            mySecondOp = secondOp;
+            Left = left;
+            Right = right;
         }
-        
-        protected abstract int Operation(IExpression firstOp, IExpression secondOp);
-        
-        public int Calculate() => Operation(myFirstOp, mySecondOp);
+
+        public abstract int Calculate();
     }
 }

@@ -53,6 +53,12 @@ namespace Calcul.Lexer
                     //TODO: floating point numbers
                     myIndex++;
                     return DotToken.Instance;
+                case '(':
+                    myIndex++;
+                    return OpenParenthesisToken.Instance;
+                case ')':
+                    myIndex++;
+                    return CloseParenthesisToken.Instance;
                 default:
                     if (!char.IsDigit(myString[myIndex]))
                     {
