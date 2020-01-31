@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Calcul.Token;
+﻿using Calcul.Expression;
 
 namespace Calcul.Parser
 {
     public interface IParser
     {
-        IReadOnlyList<IToken> Parse();
+        IExpression Parse();
     }
 }
