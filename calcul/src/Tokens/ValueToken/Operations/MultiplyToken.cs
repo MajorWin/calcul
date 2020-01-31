@@ -1,8 +1,8 @@
 ﻿namespace Calcul.Tokens.ValueToken.Operations
 {
-    public sealed class MultiplyToken : ValueToken<char>
+    public sealed class MultiplyToken : Token
     {
-        public static readonly MultiplyToken Instance = new MultiplyToken();
-        private MultiplyToken() : base('*') { }
+        public MultiplyToken(int offset) : base(offset) { }
+        public override string ToString() => "*";
     }
 }

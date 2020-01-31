@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using Calcul.Exceptions;
 using Calcul.Extensions;
 using Calcul.Lexer;
 using Calcul.Parser;
 using Calcul.Tokens;
-using Calcul.Tokens.ValueToken;
-using Calcul.Tokens.ValueToken.Brackets;
 
 namespace Calcul
 {
@@ -49,7 +46,9 @@ namespace Calcul
             const string expression = "1*2--   -+-3 + (5 + 6)*7 + 2!!!! + (1+2*1)! + (2!)!!**(1+2)!"; 
             var l = new ArithmeticLexer(expression);
             var p = new InfixToAstParser(l);
-            Console.Out.Write(p.Parse().Calculate());
+            var e = p.Parse();
+            Console.WriteLine(e.ToString());
+            Console.WriteLine(e.Calculate());
         }
     }
 }

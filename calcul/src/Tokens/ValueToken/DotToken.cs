@@ -1,8 +1,8 @@
 ﻿namespace Calcul.Tokens.ValueToken
 {
-    public sealed class DotToken : ValueToken<char>
+    public sealed class DotToken : Token
     {
-        public static readonly DotToken Instance = new DotToken();
-        private DotToken() : base('.') { }
+        private DotToken(int offset) : base(offset) { }
+        public override string ToString() => ".";
     }
 }

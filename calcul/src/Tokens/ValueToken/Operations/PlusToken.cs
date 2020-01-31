@@ -1,8 +1,8 @@
 ﻿namespace Calcul.Tokens.ValueToken.Operations
 {
-    public sealed class PlusToken : ValueToken<char>
+    public sealed class PlusToken : Token
     {
-        public static readonly PlusToken Instance = new PlusToken();
-        private PlusToken() : base('+') { }
+        public PlusToken(int offset) : base(offset) { }
+        public override string ToString() => "/";
     }
 }

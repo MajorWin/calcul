@@ -2,7 +2,7 @@
 {
     public sealed class EofToken : Token
     {
-        public static readonly EofToken Instance = new EofToken();
+        public EofToken(int offset) : base(offset) { }
         public override string ToString() => "END";
     }
 }

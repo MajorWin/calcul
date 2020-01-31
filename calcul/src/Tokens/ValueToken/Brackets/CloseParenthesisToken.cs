@@ -1,8 +1,8 @@
 ﻿namespace Calcul.Tokens.ValueToken.Brackets
 {
-    public sealed class CloseParenthesisToken : ValueToken<char>
+    public sealed class CloseParenthesisToken : Token
     {
-        public static readonly CloseParenthesisToken Instance = new CloseParenthesisToken();
-        public CloseParenthesisToken() : base(')') { }
+        public CloseParenthesisToken(int offset) : base(offset) { }
+        public override string ToString() => ")";
     }
 }

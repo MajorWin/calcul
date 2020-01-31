@@ -1,8 +1,8 @@
 ﻿namespace Calcul.Tokens.ValueToken.Operations
 {
-    public sealed class DivideToken : ValueToken<char>
+    public sealed class DivideToken : Token
     {
-        public static readonly DivideToken Instance = new DivideToken();
-        private DivideToken() : base('/') { }
+        public DivideToken(int offset) : base(offset) { }
+        public override string ToString() => "/";
     }
 }

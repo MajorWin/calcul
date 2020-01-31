@@ -30,7 +30,8 @@ namespace Calcul.Lexer
             {
                 throw new LexerException(myString[myIndex].ToString(), myIndex);
             }
-            Current = hasNext ? myTokens.Current : EofToken.Instance;
+
+            Current = hasNext ? myTokens.Current : new EofToken(myIndex);
             return Current;
         }
 
@@ -65,8 +66,8 @@ namespace Calcul.Lexer
                 myIndex++;
                 yield return nextChar switch
                 {
-                    '+' => PlusToken.Instance,
-                    _ => MinusToken.Instance
+                    '+' => new PlusToken(myIndex - 1),
+                    _ => new MinusToken(myIndex - 1)
                 };
             }
         }
@@ -87,8 +88,8 @@ namespace Calcul.Lexer
                 myIndex++;
                 yield return nextChar switch
                 {
-                    '*' => MultiplyToken.Instance,
-                    _ => DivideToken.Instance
+                    '*' => new MultiplyToken(myIndex - 1),
+                    _ => new DivideToken(myIndex - 1)
                 };
             }
         }
@@ -106,7 +107,7 @@ namespace Calcul.Lexer
                 if (myString[myIndex] != '*' || myString[myIndex + 1] != '*') yield break;
 
                 myIndex += 2;
-                yield return PowerToken.Instance;
+                yield return new PowerToken(myIndex - 2);
             }
         }
 
@@ -121,7 +122,7 @@ namespace Calcul.Lexer
             while (myString[myIndex] == '!')
             {
                 myIndex++;
-                yield return ExclamationToken.Instance;
+                yield return new ExclamationToken(myIndex - 1);
                 SkipSpaces();
             }
         }
@@ -131,8 +132,11 @@ namespace Calcul.Lexer
             SkipSpaces();
             while (myString[myIndex] == '+' || myString[myIndex] == '-')
             {
+                var tokenIndex = myIndex;
                 myIndex++;
-                yield return myString[myIndex - 1] == '+' ? (Token) PlusToken.Instance : MinusToken.Instance;
+                yield return myString[tokenIndex] == '+'
+                    ? (Token) new PlusToken(tokenIndex)
+                    : new MinusToken(tokenIndex);
                 SkipSpaces();
             }
 
@@ -149,7 +153,7 @@ namespace Calcul.Lexer
             {
                 // (
                 myIndex++;
-                yield return OpenParenthesisToken.Instance;
+                yield return new OpenParenthesisToken(myIndex - 1);
 
                 // integer
                 foreach (var token in ReadAdditive())
@@ -162,7 +166,7 @@ namespace Calcul.Lexer
                 if (myString[myIndex] == ')')
                 {
                     myIndex++;
-                    yield return CloseParenthesisToken.Instance;
+                    yield return new CloseParenthesisToken(myIndex - 1);
                 }
                 else
                 {
@@ -191,9 +195,11 @@ namespace Calcul.Lexer
 
             var length = nextToLast - myIndex;
             var number = int.Parse(myString.Substring(myIndex, length));
+
+            var result = new IntToken(number, myIndex);
             myIndex = nextToLast;
 
-            return new IntToken(number);
+            return result;
         }
     }
 }

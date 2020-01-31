@@ -13,7 +13,12 @@
         {
             var result = myOperand.Calculate();
 
-            for (int multiplier = result - 1; multiplier > 1; multiplier--)
+            if (result == 0)
+            {
+                return 1;
+            }
+
+            for (var multiplier = result - 1; multiplier > 1; multiplier--)
             {
                 result *= multiplier;
             }
