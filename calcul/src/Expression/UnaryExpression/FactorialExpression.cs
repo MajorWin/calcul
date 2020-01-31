@@ -1,4 +1,6 @@
-﻿namespace Calcul.Expression.UnaryExpression
+﻿using Calcul.Exceptions.Expression;
+
+namespace Calcul.Expression.UnaryExpression
 {
     public class FactorialExpression : IExpression
     {
@@ -12,6 +14,11 @@
         public int Calculate()
         {
             var result = myOperand.Calculate();
+
+            if (result < 0)
+            {
+                throw new FactorialLessThanZero(myOperand, result);
+            }
 
             if (result == 0)
             {

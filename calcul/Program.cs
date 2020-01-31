@@ -43,7 +43,8 @@ namespace Calcul
 
         private static void TestAstParser()
         {
-            const string expression = "1*2--   -+-3 + (5 + 6)*7 + 2!!!! + (1+2*1)! + (2!)!!**(1+2)!"; 
+            // const string expression = "2! / (-1! + 0!)"; 
+            const string expression = "1*2--   -+-3 + (5 + 6)*7 + 2!!!! + (1+2*1)! + (2!)!!**(1+2)! + (1 - 1)!"; 
             var l = new ArithmeticLexer(expression);
             var p = new InfixToAstParser(l);
             var e = p.Parse();
