@@ -5,9 +5,9 @@ using Calcul.Exceptions;
 using Calcul.Extensions;
 using Calcul.Lexer;
 using Calcul.Parser;
-using Calcul.Token;
-using Calcul.Token.ValueToken;
-using Calcul.Token.ValueToken.Brackets;
+using Calcul.Tokens;
+using Calcul.Tokens.ValueToken;
+using Calcul.Tokens.ValueToken.Brackets;
 
 namespace Calcul
 {

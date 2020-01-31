@@ -1,11 +1,11 @@
-﻿using Calcul.Token;
+﻿using Calcul.Tokens;
 
 namespace Calcul.Lexer
 {
     public interface ILexer
     {
-        IToken Current { get; }
-        IToken GetNext();
-        IToken GetCurrentAndMoveNext();
+        Token Current { get; }
+        Token GetNext();
+        Token GetCurrentAndMoveNext();
     }
 }

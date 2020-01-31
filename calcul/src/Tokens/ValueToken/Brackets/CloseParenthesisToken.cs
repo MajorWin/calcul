@@ -1,4 +1,4 @@
-﻿namespace Calcul.Token.ValueToken.Brackets
+﻿namespace Calcul.Tokens.ValueToken.Brackets
 {
     public sealed class CloseParenthesisToken : ValueToken<char>
     {

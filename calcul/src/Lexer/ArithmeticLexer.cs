@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Calcul.Exceptions;
-using Calcul.Token;
-using Calcul.Token.ValueToken;
-using Calcul.Token.ValueToken.Brackets;
-using Calcul.Token.ValueToken.Operations;
+using Calcul.Tokens;
+using Calcul.Tokens.ValueToken;
+using Calcul.Tokens.ValueToken.Brackets;
+using Calcul.Tokens.ValueToken.Operations;
 
 namespace Calcul.Lexer
 {
@@ -12,7 +12,7 @@ namespace Calcul.Lexer
     {
         private readonly string myString;
         private int myIndex;
-        private readonly IEnumerator<Token.IToken> myTokens;
+        private readonly IEnumerator<Token> myTokens;
 
         public ArithmeticLexer(string s)
         {
@@ -21,9 +21,9 @@ namespace Calcul.Lexer
             myTokens = ReadAdditive().GetEnumerator();
         }
 
-        public Token.IToken Current { get; private set; }
+        public Token Current { get; private set; }
 
-        public Token.IToken GetNext()
+        public Token GetNext()
         {
             var hasNext = myTokens.MoveNext();
             if (!hasNext && myIndex != myString.Length - 1)
@@ -34,7 +34,7 @@ namespace Calcul.Lexer
             return Current;
         }
 
-        public Token.IToken GetCurrentAndMoveNext()
+        public Token GetCurrentAndMoveNext()
         {
             var oldCurrent = Current;
             GetNext();
@@ -49,7 +49,7 @@ namespace Calcul.Lexer
             }
         }
 
-        private IEnumerable<Token.IToken> ReadAdditive()
+        private IEnumerable<Token> ReadAdditive()
         {
             while (true)
             {
@@ -71,7 +71,7 @@ namespace Calcul.Lexer
             }
         }
 
-        private IEnumerable<Token.IToken> ReadMultiplicative()
+        private IEnumerable<Token> ReadMultiplicative()
         {
             while (true)
             {
@@ -93,7 +93,7 @@ namespace Calcul.Lexer
             }
         }
 
-        private IEnumerable<Token.IToken> ReadPower()
+        private IEnumerable<Token> ReadPower()
         {
             while (true)
             {
@@ -110,7 +110,7 @@ namespace Calcul.Lexer
             }
         }
 
-        private IEnumerable<Token.IToken> ReadFactorial()
+        private IEnumerable<Token> ReadFactorial()
         {
             foreach (var token in ReadUnary())
             {
@@ -126,13 +126,13 @@ namespace Calcul.Lexer
             }
         }
 
-        private IEnumerable<Token.IToken> ReadUnary()
+        private IEnumerable<Token> ReadUnary()
         {
             SkipSpaces();
             while (myString[myIndex] == '+' || myString[myIndex] == '-')
             {
                 myIndex++;
-                yield return myString[myIndex - 1] == '+' ? (Token.IToken) PlusToken.Instance : MinusToken.Instance;
+                yield return myString[myIndex - 1] == '+' ? (Token) PlusToken.Instance : MinusToken.Instance;
                 SkipSpaces();
             }
 
@@ -142,7 +142,7 @@ namespace Calcul.Lexer
             }
         }
 
-        private IEnumerable<Token.IToken> ReadParentheses()
+        private IEnumerable<Token> ReadParentheses()
         {
             SkipSpaces();
             if (myString[myIndex] == '(')

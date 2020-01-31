@@ -1,14 +1,13 @@
-﻿using System;
-using Calcul.Exceptions;
+﻿using Calcul.Exceptions;
 using Calcul.Expression;
 using Calcul.Expression.BinaryExpression;
 using Calcul.Expression.UnaryExpression;
 using Calcul.Extensions;
 using Calcul.Lexer;
-using Calcul.Token;
-using Calcul.Token.ValueToken;
-using Calcul.Token.ValueToken.Brackets;
-using Calcul.Token.ValueToken.Operations;
+using Calcul.Tokens;
+using Calcul.Tokens.ValueToken;
+using Calcul.Tokens.ValueToken.Brackets;
+using Calcul.Tokens.ValueToken.Operations;
 
 namespace Calcul.Parser
 {
