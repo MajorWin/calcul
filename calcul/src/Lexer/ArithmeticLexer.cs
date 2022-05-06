@@ -98,7 +98,7 @@ namespace Calcul.Lexer
         {
             while (true)
             {
-                foreach (var token in ReadFactorial())
+                foreach (var token in ReadUnary())
                 {
                     yield return token;
                 }
@@ -108,22 +108,6 @@ namespace Calcul.Lexer
 
                 myIndex += 2;
                 yield return new PowerToken(myIndex - 2);
-            }
-        }
-
-        private IEnumerable<Token> ReadFactorial()
-        {
-            foreach (var token in ReadUnary())
-            {
-                yield return token;
-            }
-
-            SkipSpaces();
-            while (myString[myIndex] == '!')
-            {
-                myIndex++;
-                yield return new ExclamationToken(myIndex - 1);
-                SkipSpaces();
             }
         }
 
@@ -140,9 +124,25 @@ namespace Calcul.Lexer
                 SkipSpaces();
             }
 
+            foreach (var token in ReadFactorial())
+            {
+                yield return token;
+            }
+        }
+
+        private IEnumerable<Token> ReadFactorial()
+        {
             foreach (var token in ReadParentheses())
             {
                 yield return token;
+            }
+
+            SkipSpaces();
+            while (myString[myIndex] == '!')
+            {
+                myIndex++;
+                yield return new ExclamationToken(myIndex - 1);
+                SkipSpaces();
             }
         }
 
