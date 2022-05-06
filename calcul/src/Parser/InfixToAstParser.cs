@@ -5,141 +5,140 @@ using Calcul.Expression.UnaryExpression;
 using Calcul.Extensions;
 using Calcul.Lexer;
 using Calcul.Tokens;
-using Calcul.Tokens.ValueToken;
-using Calcul.Tokens.ValueToken.Brackets;
-using Calcul.Tokens.ValueToken.Operations;
+using Calcul.Tokens.ValueTokens;
+using Calcul.Tokens.SymbolTokens.Brackets;
+using Calcul.Tokens.SymbolTokens.Operations;
 
-namespace Calcul.Parser
+namespace Calcul.Parser;
+
+public class InfixToAstParser : IParser
 {
-    public class InfixToAstParser : IParser
+    private readonly ILexer myLexer;
+
+    public InfixToAstParser(ILexer lexer) => myLexer = lexer;
+
+    public IExpression Parse()
     {
-        private readonly ILexer myLexer;
+        return myLexer.GetNext() is EofToken ? new IntNumberExpression(0) : ParseAdditive();
+    }
 
-        public InfixToAstParser(ILexer lexer) => myLexer = lexer;
-
-        public IExpression Parse()
+    private IExpression ParseAdditive()
+    {
+        var left = ParseMultiplicative();
+        while (myLexer.Current.IsAdditiveToken())
         {
-            return myLexer.GetNext() is EofToken ? new IntNumberExpression(0) : ParseAdditive();
-        }
-
-        private IExpression ParseAdditive()
-        {
-            var left = ParseMultiplicative();
-            while (myLexer.Current.IsAdditiveToken())
+            var operation = myLexer.GetCurrentAndMoveNext();
+            var right = ParseMultiplicative();
+            left = operation switch
             {
-                var operation = myLexer.GetCurrentAndMoveNext();
-                var right = ParseMultiplicative();
-                left = operation switch
-                {
-                    PlusToken _ => new AdditionExpression(left, right),
-                    _ => new SubtractionExpression(left, right),
-                };
-            }
-
-            return left;
-        }
-
-        private IExpression ParseMultiplicative()
-        {
-            var left = ParsePower();
-            while (myLexer.Current.IsMultiplicativeToken())
-            {
-                var operation = myLexer.GetCurrentAndMoveNext();
-                var right = ParsePower();
-                left = operation switch
-                {
-                    MultiplyToken _ => new MultiplicationExpression(left, right),
-                    _ => new DivisionExpression(left, right)
-                };
-            }
-
-            return left;
-        }
-
-        private IExpression ParsePower()
-        {
-            var left = ParseFactorial();
-
-            if (myLexer.Current.IsNot<PowerToken>())
-            {
-                return left;
-            }
-            
-            myLexer.GetNext();
-            return new PowerExpression(left, ParsePower());
-        }
-
-        private IExpression ParseFactorial()
-        {
-            var operand = ParseUnary();
-            
-            return myLexer.Current.Is<ExclamationToken>()
-                ? ParseFactorial(operand)
-                : operand;
-
-            IExpression ParseFactorial(IExpression unaryExpression)
-            {
-                myLexer.GetNext();
-                return myLexer.Current.Is<ExclamationToken>()
-                    ? new FactorialExpression(ParseFactorial(unaryExpression))
-                    : new FactorialExpression(unaryExpression);
-            }
-        }
-
-        private IExpression ParseUnary()
-        {
-            var plusCount = 0;
-            var minusCount = 0;
-            while (myLexer.Current.IsUnary())
-            {
-                if (myLexer.GetCurrentAndMoveNext().Is<PlusToken>())
-                {
-                    plusCount++;
-                }
-                else
-                {
-                    minusCount++;
-                }
-            }
-
-            return plusCount > 0 || minusCount > 0
-                ? new UnaryPlusMinusExpression(plusCount, minusCount, ParseParentheses())
-                : ParseParentheses();
-        }
-
-        private IExpression ParseParentheses()
-        {
-            return myLexer.Current switch
-            {
-                OpenParenthesisToken _ => ParseParenthesesExpression(),
-                IntToken _ => ParseNumber(),
-                _ => throw new ParserException((typeof(IntToken), typeof(OpenParenthesisToken)), myLexer.Current)
+                PlusToken _ => new AdditionExpression(left, right),
+                _ => new SubtractionExpression(left, right),
             };
         }
 
-        private IExpression ParseParenthesesExpression()
+        return left;
+    }
+
+    private IExpression ParseMultiplicative()
+    {
+        var left = ParsePower();
+        while (myLexer.Current.IsMultiplicativeToken())
         {
-            // (
-            myLexer.GetNext();
-
-            var expr = ParseAdditive();
-
-            // )
-            var afterExprToken = myLexer.Current;
-            if (afterExprToken.IsNot<CloseParenthesisToken>())
+            var operation = myLexer.GetCurrentAndMoveNext();
+            var right = ParsePower();
+            left = operation switch
             {
-                throw new ParserException(typeof(CloseParenthesisToken), afterExprToken);
-            }
-
-            myLexer.GetNext();
-
-            return expr;
+                MultiplyToken _ => new MultiplicationExpression(left, right),
+                _ => new DivisionExpression(left, right)
+            };
         }
 
-        private IExpression ParseNumber()
+        return left;
+    }
+
+    private IExpression ParsePower()
+    {
+        var left = ParseFactorial();
+
+        if (myLexer.Current.IsNot<PowerToken>())
         {
-            var value = ((IntToken) myLexer.GetCurrentAndMoveNext()).Value;
-            return new IntNumberExpression(value);
+            return left;
         }
+
+        myLexer.GetNext();
+        return new PowerExpression(left, ParsePower());
+    }
+
+    private IExpression ParseFactorial()
+    {
+        var operand = ParseUnary();
+
+        return myLexer.Current.Is<ExclamationToken>()
+            ? ParseFactorial(operand)
+            : operand;
+
+        IExpression ParseFactorial(IExpression unaryExpression)
+        {
+            myLexer.GetNext();
+            return myLexer.Current.Is<ExclamationToken>()
+                ? new FactorialExpression(ParseFactorial(unaryExpression))
+                : new FactorialExpression(unaryExpression);
+        }
+    }
+
+    private IExpression ParseUnary()
+    {
+        var plusCount = 0;
+        var minusCount = 0;
+        while (myLexer.Current.IsUnary())
+        {
+            if (myLexer.GetCurrentAndMoveNext().Is<PlusToken>())
+            {
+                plusCount++;
+            }
+            else
+            {
+                minusCount++;
+            }
+        }
+
+        return plusCount > 0 || minusCount > 0
+            ? new UnaryPlusMinusExpression(plusCount, minusCount, ParseParentheses())
+            : ParseParentheses();
+    }
+
+    private IExpression ParseParentheses()
+    {
+        return myLexer.Current switch
+        {
+            OpenParenthesisToken _ => ParseParenthesesExpression(),
+            IntToken _ => ParseNumber(),
+            _ => throw new ParserException((typeof(IntToken), typeof(OpenParenthesisToken)), myLexer.Current)
+        };
+    }
+
+    private IExpression ParseParenthesesExpression()
+    {
+        // (
+        myLexer.GetNext();
+
+        var expr = ParseAdditive();
+
+        // )
+        var afterExprToken = myLexer.Current;
+        if (afterExprToken.IsNot<CloseParenthesisToken>())
+        {
+            throw new ParserException(typeof(CloseParenthesisToken), afterExprToken);
+        }
+
+        myLexer.GetNext();
+
+        return expr;
+    }
+
+    private IExpression ParseNumber()
+    {
+        var value = ((IntToken) myLexer.GetCurrentAndMoveNext()).Value;
+        return new IntNumberExpression(value);
     }
 }

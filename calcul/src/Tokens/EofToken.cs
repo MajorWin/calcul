@@ -1,8 +1,6 @@
-﻿namespace Calcul.Tokens
+﻿namespace Calcul.Tokens;
+
+public record EofToken(int Offset) : Token(Offset)
 {
-    public sealed class EofToken : Token
-    {
-        public EofToken(int offset) : base(offset) { }
-        public override string ToString() => "END";
-    }
+    public override string StringRepresentation() => "END";
 }

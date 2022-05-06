@@ -1,9 +1,8 @@
 ﻿using Calcul.Expression;
 
-namespace Calcul.Parser
+namespace Calcul.Parser;
+
+public interface IParser
 {
-    public interface IParser
-    {
-        IExpression Parse();
-    }
+    IExpression Parse();
 }

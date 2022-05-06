@@ -1,7 +1,6 @@
-﻿namespace Calcul.Expression
+﻿namespace Calcul.Expression;
+
+public interface IExpression
 {
-    public interface IExpression
-    {
-        int Calculate();
-    }
+    int Calculate();
 }

@@ -1,13 +1,10 @@
-﻿using System;
+﻿namespace Calcul.Expression;
 
-namespace Calcul.Expression
+public class IntNumberExpression : IExpression
 {
-    public class IntNumberExpression : IExpression
-    {
-        private readonly int myValue;
+    private readonly int myValue;
 
-        public IntNumberExpression(int value) => myValue = value;
-        public int Calculate() => myValue;
-        public override string ToString() => myValue.ToString();
-    }
+    public IntNumberExpression(int value) => myValue = value;
+    public int Calculate() => myValue;
+    public override string ToString() => myValue.ToString();
 }

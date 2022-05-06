@@ -1,12 +1,6 @@
-﻿namespace Calcul.Tokens
-{
-    public abstract class Token
-    {
-        public int Offset { get; }
+﻿namespace Calcul.Tokens;
 
-        protected Token(int offset)
-        {
-            Offset = offset;
-        }
-    }
+public abstract record Token(int Offset)
+{
+    public abstract string StringRepresentation();
 }

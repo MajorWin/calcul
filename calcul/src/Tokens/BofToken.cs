@@ -1,10 +1,8 @@
-﻿namespace Calcul.Tokens
-{
-    public sealed class BofToken : Token
-    {
-        public static readonly BofToken Instance = new BofToken();
+﻿namespace Calcul.Tokens;
 
-        private BofToken() : base(-1) { }
-        public override string ToString() => "BEGIN";
-    }
+public record BofToken(int Offset) : Token(Offset)
+{
+    public static readonly BofToken Instance = new(-1);
+
+    public override string StringRepresentation() => "BEGIN";
 }
