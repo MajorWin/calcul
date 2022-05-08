@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcul", "Calcul\Calcul.csproj", "{57207DDB-0660-4249-991B-A96BBE28D9A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculTests", "CalculTests\CalculTests.csproj", "{C49876BD-B77C-435F-B37D-1D7F69241395}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{57207DDB-0660-4249-991B-A96BBE28D9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57207DDB-0660-4249-991B-A96BBE28D9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57207DDB-0660-4249-991B-A96BBE28D9A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C49876BD-B77C-435F-B37D-1D7F69241395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C49876BD-B77C-435F-B37D-1D7F69241395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C49876BD-B77C-435F-B37D-1D7F69241395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C49876BD-B77C-435F-B37D-1D7F69241395}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

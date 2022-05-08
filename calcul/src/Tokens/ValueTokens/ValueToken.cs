@@ -1,6 +1,6 @@
 ﻿namespace Calcul.Tokens.ValueTokens;
 
-public record ValueToken<T>(T Value, int Offset): Token(Offset)
+public record ValueToken<T>(int Offset, T Value): Token(Offset)
 {
     public override string StringRepresentation() => Value.ToString();
 }

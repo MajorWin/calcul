@@ -1,3 +1,3 @@
 ﻿namespace Calcul.Tokens.ValueTokens;
 
-public record IntToken(int Value, int Offset): ValueToken<int>(Value, Offset);
+public record IntToken(int Offset, int Value): ValueToken<int>(Offset, Value);

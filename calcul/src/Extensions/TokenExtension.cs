@@ -9,14 +9,14 @@ public static class TokenHelper
 
     public static bool IsMultiplicativeToken(this Token token)
     {
-        return token is MultiplyToken || token is DivideToken;
+        return token is MultiplyToken or DivideToken;
     }
 
     public static bool IsUnary(this Token token) => IsPlusMinus(token);
 
     private static bool IsPlusMinus(Token token)
     {
-        return token is PlusToken || token is MinusToken;
+        return token is PlusToken or MinusToken;
     }
 
     public static bool Is<T>(this Token token) where T : Token => token is T;

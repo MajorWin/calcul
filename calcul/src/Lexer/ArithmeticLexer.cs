@@ -119,7 +119,7 @@ public class ArithmeticLexer : ILexer
             var tokenIndex = myIndex;
             myIndex++;
             yield return myString[tokenIndex] == '+'
-                ? (Token) new PlusToken(tokenIndex)
+                ? new PlusToken(tokenIndex)
                 : new MinusToken(tokenIndex);
             SkipSpaces();
         }
@@ -155,7 +155,7 @@ public class ArithmeticLexer : ILexer
             myIndex++;
             yield return new OpenParenthesisToken(myIndex - 1);
 
-            // integer
+            // number
             foreach (var token in ReadAdditive())
             {
                 yield return token;
@@ -175,11 +175,11 @@ public class ArithmeticLexer : ILexer
         }
         else
         {
-            yield return ReadInteger();
+            yield return ReadNumber();
         }
     }
 
-    private IntToken ReadInteger()
+    private IntToken ReadNumber()
     {
         SkipSpaces();
         if (!char.IsDigit(myString[myIndex]))
@@ -196,7 +196,7 @@ public class ArithmeticLexer : ILexer
         var length = nextToLast - myIndex;
         var number = int.Parse(myString.Substring(myIndex, length));
 
-        var result = new IntToken(number, myIndex);
+        var result = new IntToken(myIndex, number);
         myIndex = nextToLast;
 
         return result;

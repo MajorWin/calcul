@@ -1,8 +1,8 @@
 ﻿additive        ::= multiplicative { ("+" | "-") multiplicative }
 multiplicative  ::= power { ("*" | "/") power }
-power           ::= unary "**" power | unary
+power           ::= (unary "**" power) | unary
 unary           ::= { "-" | "+" } factorial
 factorial       ::= parentheses { "!" }
-parentheses     ::= "(" additive ")" | integer
+parentheses     ::= ("(" additive ")") | number
 
-integer ::= <digit> { <digit> }
+number ::= <digit> { <digit> }
