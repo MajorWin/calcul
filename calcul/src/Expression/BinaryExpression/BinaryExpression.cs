@@ -1,15 +1,8 @@
 ﻿namespace Calcul.Expression.BinaryExpression;
 
-public abstract class BinaryExpression : IExpression
+public abstract record BinaryExpression(IExpression Left, IExpression Right) : IExpression
 {
-    protected readonly IExpression Left;
-    protected readonly IExpression Right;
-
-    protected BinaryExpression(IExpression left, IExpression right)
-    {
-        Left = left;
-        Right = right;
-    }
-
+    protected IExpression Left { get; } = Left;
+    protected IExpression Right { get; } = Right;
     public abstract int Calculate();
 }

@@ -1,10 +1,8 @@
 ﻿namespace Calcul.Expression;
 
-public class IntNumberExpression : IExpression
+public record IntNumberExpression(int Value) : IExpression
 {
-    private readonly int myValue;
-
-    public IntNumberExpression(int value) => myValue = value;
-    public int Calculate() => myValue;
-    public override string ToString() => myValue.ToString();
+    private int Value { get; } = Value;
+    public int Calculate() => Value;
+    public override string ToString() => Value.ToString();
 }

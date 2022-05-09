@@ -2,10 +2,8 @@
 
 namespace Calcul.Expression.BinaryExpression;
 
-public class DivisionExpression : BinaryExpression
+public record DivisionExpression(IExpression Left, IExpression Right) : BinaryExpression(Left, Right)
 {
-    public DivisionExpression(IExpression left, IExpression right) : base(left, right) { }
-
     public override int Calculate()
     {
         var right = Right.Calculate();

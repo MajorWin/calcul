@@ -1,8 +1,7 @@
 ﻿namespace Calcul.Expression.BinaryExpression;
 
-public class SubtractionExpression : BinaryExpression
+public record SubtractionExpression(IExpression Left, IExpression Right) : BinaryExpression(Left, Right)
 {
-    public SubtractionExpression(IExpression left, IExpression right) : base(left, right) { }
     public override int Calculate() => Left.Calculate() - Right.Calculate();
     public override string ToString() => $"({Left}) - ({Right})";
 }

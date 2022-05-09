@@ -58,7 +58,7 @@ public class InfixToAstParser : IParser
 
     private IExpression ParsePower()
     {
-        var left = ParseFactorial();
+        var left = ParseUnary();
 
         if (myLexer.Current.IsNot<PowerToken>())
         {
@@ -67,23 +67,6 @@ public class InfixToAstParser : IParser
 
         myLexer.GetNext();
         return new PowerExpression(left, ParsePower());
-    }
-
-    private IExpression ParseFactorial()
-    {
-        var operand = ParseUnary();
-
-        return myLexer.Current.Is<ExclamationToken>()
-            ? ParseFactorial(operand)
-            : operand;
-
-        IExpression ParseFactorial(IExpression unaryExpression)
-        {
-            myLexer.GetNext();
-            return myLexer.Current.Is<ExclamationToken>()
-                ? new FactorialExpression(ParseFactorial(unaryExpression))
-                : new FactorialExpression(unaryExpression);
-        }
     }
 
     private IExpression ParseUnary()
@@ -103,8 +86,25 @@ public class InfixToAstParser : IParser
         }
 
         return plusCount > 0 || minusCount > 0
-            ? new UnaryPlusMinusExpression(plusCount, minusCount, ParseParentheses())
-            : ParseParentheses();
+            ? new UnaryPlusMinusExpression(plusCount, minusCount, ParseFactorial())
+            : ParseFactorial();
+    }
+
+    private IExpression ParseFactorial()
+    {
+        var operand = ParseParentheses();
+
+        return myLexer.Current.Is<ExclamationToken>()
+            ? ParseFactorialInternal(operand)
+            : operand;
+
+        IExpression ParseFactorialInternal(IExpression expression)
+        {
+            myLexer.GetNext();
+            return myLexer.Current.Is<ExclamationToken>()
+                ? new FactorialExpression(ParseFactorialInternal(expression))
+                : new FactorialExpression(expression);
+        }
     }
 
     private IExpression ParseParentheses()

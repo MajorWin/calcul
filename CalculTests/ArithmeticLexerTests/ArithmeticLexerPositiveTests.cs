@@ -156,24 +156,9 @@ public class ArithmeticLexerPositiveTests
         }),
     };
 
-    public static IEnumerable<TestCaseData> GrammarReverseConsecutiveExpressions = new[]
-    {
-        new TestCaseData("1*2+3*4", new Token[]
-        {
-            new IntToken(0, 1),
-            new MultiplyToken(1),
-            new IntToken(2, 2),
-            new PlusToken(3),
-            new IntToken(4, 3),
-            new MultiplyToken(5),
-            new IntToken(6, 4)
-        }),
-    };
-
     [TestCaseSource(nameof(SingleExpressions)), Category(nameof(SingleExpressions))]
     [TestCaseSource(nameof(GrammarSameLevelExpressions)), Category(nameof(GrammarSameLevelExpressions))]
     [TestCaseSource(nameof(GrammarConsecutiveExpressions)), Category(nameof(GrammarConsecutiveExpressions))]
-    [TestCaseSource(nameof(GrammarReverseConsecutiveExpressions)), Category(nameof(GrammarReverseConsecutiveExpressions))]
     public void ExpressionTest(string expression, IEnumerable<Token> expectedTokens)
     {
         // given

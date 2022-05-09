@@ -2,22 +2,17 @@
 
 namespace Calcul.Expression.UnaryExpression;
 
-public class FactorialExpression : IExpression
+public record FactorialExpression(IExpression Operand) : IExpression
 {
-    private IExpression myOperand;
-
-    public FactorialExpression(IExpression operand)
-    {
-        myOperand = operand;
-    }
+    private IExpression Operand { get; } = Operand;
 
     public int Calculate()
     {
-        var result = myOperand.Calculate();
+        var result = Operand.Calculate();
 
         if (result < 0)
         {
-            throw new FactorialLessThanZero(myOperand, result);
+            throw new FactorialLessThanZero(Operand, result);
         }
 
         if (result == 0)
@@ -33,5 +28,5 @@ public class FactorialExpression : IExpression
         return result;
     }
 
-    public override string ToString() => $"({myOperand})!";
+    public override string ToString() => $"({Operand})!";
 }

@@ -2,33 +2,27 @@
 
 namespace Calcul.Expression.UnaryExpression;
 
-public class UnaryPlusMinusExpression : IExpression
+public record UnaryPlusMinusExpression(int PlusCount, int MinusCount, IExpression Expression) : IExpression
 {
-    private readonly int myPlusCount;
-    private readonly int myMinusCount;
-    private readonly IExpression myExpression;
-
-    public UnaryPlusMinusExpression(int plusCount, int minusCount, IExpression expression)
-    {
-        myPlusCount = plusCount;
-        myMinusCount = minusCount;
-        myExpression = expression;
-    }
+    private int PlusCount { get; } = PlusCount;
+    private int MinusCount { get; } = MinusCount;
+    private IExpression Expression { get; } = Expression;
 
     public int Calculate()
     {
-        var multiplier = myMinusCount % 2 == 0 ? 1 : -1;
-        return myExpression.Calculate() * multiplier;
+        var multiplier = MinusCount % 2 == 0 ? 1 : -1;
+        return Expression.Calculate() * multiplier;
     }
 
     public override string ToString() =>
-        myPlusCount > 0 || myMinusCount > 0
+        PlusCount > 0 || MinusCount > 0
             ? new StringBuilder()
-                .Append('-', myMinusCount)
-                .Append('+', myPlusCount)
+                .Append('-', MinusCount)
+                .Append('+', PlusCount)
                 .Append('(')
-                .Append(myExpression.ToString())
+                .Append(Expression)
                 .Append(')')
                 .ToString()
-            : myExpression.ToString();
+            : Expression.ToString();
+
 }

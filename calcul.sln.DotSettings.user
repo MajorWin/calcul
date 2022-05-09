@@ -1,7 +1,11 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">ShowAndRun</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=854c6340_002D7f1d_002D42cc_002Da769_002Dab7d71e5c0ac/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::C49876BD-B77C-435F-B37D-1D7F69241395::net6.0::CalculTests.ArithmeticLexerTests.ArithmeticLexerPositiveTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::C49876BD-B77C-435F-B37D-1D7F69241395::net6.0::CalculTests.ArithmeticLexerTests.ArithmeticLexerPositiveTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::C49876BD-B77C-435F-B37D-1D7F69241395::net6.0::CalculTests.InfixToAstParserTests.InfixToAstParserTests.ExpressionTest&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;ProjectFile&gt;C49876BD-B77C-435F-B37D-1D7F69241395/d:EndToEndTests/f:SingleExpressionTests.cs&lt;/ProjectFile&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
