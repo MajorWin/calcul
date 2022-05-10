@@ -1,4 +1,4 @@
-﻿using Calcul.Tokens;
+﻿using Calcul.Lexer.Tokens;
 
 namespace Calcul.Lexer;
 

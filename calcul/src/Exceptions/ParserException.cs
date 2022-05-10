@@ -1,5 +1,5 @@
 ﻿using System;
-using Calcul.Tokens;
+using Calcul.Lexer.Tokens;
 
 namespace Calcul.Exceptions;
 

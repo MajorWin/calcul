@@ -1,4 +1,4 @@
-﻿using Calcul.Expression;
+﻿using Calcul.Parser.Expressions;
 
 namespace Calcul.Parser;
 

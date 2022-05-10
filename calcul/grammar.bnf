@@ -1,8 +1,20 @@
-﻿additive        ::= multiplicative { ("+" | "-") multiplicative }
+﻿program     ::= { sentence }
+
+sentence    ::= (defineVariable | expression)? endOfSentence
+
+expression              ::= (defineAndSetVariable | setVariable | additive)
+nonArithmeticExpression ::= (defineAndSetVariable | setVariable)
+
+defineVariable          ::= "var" identifier
+defineAndSetVariable    ::= defineVariable "=" expression
+setVariable             ::= identifier "=" expression
+
+additive        ::= multiplicative { ("+" | "-") multiplicative }
 multiplicative  ::= power { ("*" | "/") power }
 power           ::= (unary "**" power) | unary
 unary           ::= { "-" | "+" } factorial
 factorial       ::= parentheses { "!" }
-parentheses     ::= ("(" additive ")") | number
+parentheses     ::= ("(" additive ")") | number | identifier | nonArithmeticExpression
 
-number ::= <digit> { <digit> }
+identifier        ::= ("_" | letter) { "_" | letter | digit }
+endOfSentence   ::= ("\n" | "\r\n" | "<eof>")

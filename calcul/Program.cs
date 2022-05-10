@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
-using Calcul.Extensions;
 using Calcul.Lexer;
+using Calcul.Lexer.Tokens;
+using Calcul.Lexer.Tokens.Extensions;
 using Calcul.Parser;
-using Calcul.Tokens;
 
 namespace Calcul;
 
@@ -47,7 +47,7 @@ public static class Program
         const string expression = "1*2--   -+-3 + (5 + 6)*7 + 2!!!! + (1+2*1)! + (2!)!!**(1+2)! + (1 - 1)!";
         var l = new ArithmeticLexer(expression);
         var p = new InfixToAstParser(l);
-        var e = p.Parse();
+        var e = p.ParseStatement();
         Console.WriteLine(e.ToString());
         Console.WriteLine(e.Calculate());
     }

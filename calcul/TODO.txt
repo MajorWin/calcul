@@ -1,0 +1,4 @@
+﻿EndOfLineToken for multiline statements
+no ;
+no () after if
+no {} ? (python like)

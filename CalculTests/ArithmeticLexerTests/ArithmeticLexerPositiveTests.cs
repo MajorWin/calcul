@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Calcul.Lexer;
-using Calcul.Tokens;
-using Calcul.Tokens.SymbolTokens.Brackets;
-using Calcul.Tokens.ValueTokens;
-using Calcul.Tokens.SymbolTokens.Operations;
+using Calcul.Lexer.Tokens;
+using Calcul.Lexer.Tokens.SymbolTokens.Brackets;
+using Calcul.Lexer.Tokens.SymbolTokens.Operations;
+using Calcul.Lexer.Tokens.ValueTokens;
 using NUnit.Framework;
 
 namespace CalculTests.ArithmeticLexerTests;
@@ -49,6 +49,7 @@ public class ArithmeticLexerPositiveTests
             new CloseParenthesisToken(4)
         }),
         new TestCaseData("12345", new Token[] { new IntToken(0, 12345) }),
+        new TestCaseData("_asdf123", new Token[] { new IdentifierToken(0, "_asdf123")})
     };
 
     public static IEnumerable<TestCaseData> GrammarSameLevelExpressions = new[]

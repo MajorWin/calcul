@@ -1,26 +1,69 @@
-﻿using Calcul.Exceptions;
-using Calcul.Expression;
-using Calcul.Expression.BinaryExpression;
-using Calcul.Expression.UnaryExpression;
-using Calcul.Extensions;
+﻿using System.Collections.Generic;
+using Calcul.Exceptions;
+using Calcul.Exceptions.Expression;
 using Calcul.Lexer;
-using Calcul.Tokens;
-using Calcul.Tokens.ValueTokens;
-using Calcul.Tokens.SymbolTokens.Brackets;
-using Calcul.Tokens.SymbolTokens.Operations;
+using Calcul.Lexer.Tokens;
+using Calcul.Lexer.Tokens.Extensions;
+using Calcul.Lexer.Tokens.SymbolTokens.Brackets;
+using Calcul.Lexer.Tokens.SymbolTokens.Operations;
+using Calcul.Lexer.Tokens.ValueTokens;
+using Calcul.Parser.Expressions;
+using Calcul.Parser.Expressions.BinaryExpressions;
+using Calcul.Parser.Expressions.UnaryExpressions;
 
 namespace Calcul.Parser;
 
-public class InfixToAstParser : IParser
+public class InfixToAstParser
 {
     private readonly ILexer myLexer;
+    private readonly IContext myContext;
 
-    public InfixToAstParser(ILexer lexer) => myLexer = lexer;
-
-    public IExpression Parse()
+    public InfixToAstParser(ILexer lexer)
     {
-        return myLexer.GetNext() is EofToken ? new IntNumberExpression(0) : ParseAdditive();
+        myLexer = lexer;
+        myContext = new Context();
     }
+
+    public InfixToAstParser(ILexer lexer, IContext context) : this(lexer)
+    {
+        myLexer = lexer;
+        myContext = context;
+    }
+
+    public IEnumerable<IExpression> ParseStatements()
+    {
+        myLexer.GetNext();
+        while (myLexer.Current is not EofToken)
+        {
+            var expr = ParseStatement();
+            if (expr is not null) yield return expr;
+        }
+    }
+
+    public IExpression ParseStatement()
+    {
+        //TODO:
+        if (myLexer.Current is BofToken)
+        {
+            myLexer.GetCurrentAndMoveNext();
+        }
+
+        if (myLexer.Current is EndOfStatementToken)
+        {
+            return null;
+        }
+
+        var res = ParseExpression();
+        if (myLexer.Current is EndOfStatementToken)
+        {
+            myLexer.GetCurrentAndMoveNext();
+            return res;
+        }
+
+        throw new ParserException(typeof(EndOfStatementToken), myLexer.Current);
+    }
+
+    private IExpression ParseExpression() => ParseAdditive();
 
     private IExpression ParseAdditive()
     {
@@ -113,6 +156,7 @@ public class InfixToAstParser : IParser
         {
             OpenParenthesisToken _ => ParseParenthesesExpression(),
             IntToken _ => ParseNumber(),
+            IdentifierToken => ParseVariable(),
             _ => throw new ParserException((typeof(IntToken), typeof(OpenParenthesisToken)), myLexer.Current)
         };
     }
@@ -138,7 +182,19 @@ public class InfixToAstParser : IParser
 
     private IExpression ParseNumber()
     {
-        var value = ((IntToken) myLexer.GetCurrentAndMoveNext()).Value;
+        var value = ((IntToken)myLexer.GetCurrentAndMoveNext()).Value;
         return new IntNumberExpression(value);
+    }
+
+    private IExpression ParseVariable()
+    {
+        var name = ((IdentifierToken)myLexer.GetCurrentAndMoveNext()).Value;
+        if (!myContext.Variables.ContainsKey(name))
+        {
+            throw new UnknownVariableException(name);
+        }
+
+        var value = myContext.Variables[name];
+        return new VariableExpression(name, value);
     }
 }
