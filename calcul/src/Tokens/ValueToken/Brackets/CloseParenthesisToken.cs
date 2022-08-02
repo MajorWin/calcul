@@ -1,8 +1,7 @@
-﻿namespace Calcul.Tokens.ValueToken.Brackets
+﻿namespace Calcul.Tokens.ValueToken.Brackets;
+
+public sealed class CloseParenthesisToken : Token
 {
-    public sealed class CloseParenthesisToken : Token
-    {
-        public CloseParenthesisToken(int offset) : base(offset) { }
-        public override string ToString() => ")";
-    }
+    public CloseParenthesisToken(int offset) : base(offset) { }
+    public override string ToString() => ")";
 }

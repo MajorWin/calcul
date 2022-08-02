@@ -1,8 +1,7 @@
-﻿namespace Calcul.Tokens.ValueToken
+﻿namespace Calcul.Tokens.ValueToken;
+
+public sealed class DotToken : Token
 {
-    public sealed class DotToken : Token
-    {
-        private DotToken(int offset) : base(offset) { }
-        public override string ToString() => ".";
-    }
+    private DotToken(int offset) : base(offset) { }
+    public override string ToString() => ".";
 }

@@ -1,8 +1,7 @@
-﻿namespace Calcul.Tokens.ValueToken.Operations
+﻿namespace Calcul.Tokens.ValueToken.Operations;
+
+public sealed class ExclamationToken : Token
 {
-    public sealed class ExclamationToken : Token
-    {
-        public ExclamationToken(int offset) : base(offset) { }
-        public override string ToString() => "!";
-    }
+    public ExclamationToken(int offset) : base(offset) { }
+    public override string ToString() => "!";
 }

@@ -1,8 +1,7 @@
-﻿namespace Calcul.Tokens.ValueToken.Operations
+﻿namespace Calcul.Tokens.ValueToken.Operations;
+
+public sealed class PowerToken : Token
 {
-    public sealed class PowerToken : Token
-    {
-        public PowerToken(int offset) : base(offset) { }
-        public override string ToString() => "**";
-    }
+    public PowerToken(int offset) : base(offset) { }
+    public override string ToString() => "**";
 }

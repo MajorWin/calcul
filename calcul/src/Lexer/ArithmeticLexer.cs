@@ -135,7 +135,7 @@ namespace Calcul.Lexer
                 var tokenIndex = myIndex;
                 myIndex++;
                 yield return myString[tokenIndex] == '+'
-                    ? (Token) new PlusToken(tokenIndex)
+                    ? new PlusToken(tokenIndex)
                     : new MinusToken(tokenIndex);
                 SkipSpaces();
             }

@@ -1,7 +1,6 @@
-﻿namespace Calcul.Tokens.ValueToken
+﻿namespace Calcul.Tokens.ValueToken;
+
+public sealed class IntToken : ValueToken<int>
 {
-    public sealed class IntToken : ValueToken<int>
-    {
-        public IntToken(int value, int offset) : base(value, offset) { }
-    }
+    public IntToken(int value, int offset) : base(value, offset) { }
 }

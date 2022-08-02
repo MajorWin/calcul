@@ -1,8 +1,7 @@
-﻿namespace Calcul.Tokens.ValueToken
+﻿namespace Calcul.Tokens.ValueToken;
+
+public class InvalidToken : ValueToken<string>
 {
-    public class InvalidToken : ValueToken<string>
-    {
-        public InvalidToken(string value, int offset) : base(value, offset) { }
-        public override string ToString() => $"Invalid token: \"{Value}\"";
-    }
+    public InvalidToken(string value, int offset) : base(value, offset) { }
+    public override string ToString() => $"Invalid token: \"{Value}\"";
 }
